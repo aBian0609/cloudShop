@@ -3,3 +3,5 @@ node_modules
 Resources
 
 dist
+
+project.private.config.json
