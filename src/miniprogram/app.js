@@ -1,73 +1,23 @@
 // const lodash = require('lodash') 
-const add = require('lodash/add') 
+// const add = require('lodash/add') 
 App({
   /**
    * APP加载时运行回调
    */
   onLaunch: function () {
     // console.log('lodash', lodash.add(3, 4));
-    console.log('lodash', add(3, 4));
+    // console.log('lodash', add(3, 4));
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
     } else {
       wx.cloud.init({
-        traceUser: true
+        traceUser: true,
+        env: 'develop-2g9mkqf6b1299c62'
       })
     }
   },
-  /**
-   * 加载商品列表
-   * @param {*} obj 
-   */
-  getGoodSList: function (obj) {
-    wx.cloud.callFunction({
-      name:"getGoodlist",
-      success(res){
-        if (obj != null && obj.success != null) {       //判断是否有success回调写入
-          obj.success(res.result);            //调用回调，将商品列表信息传回
-        }
-      }
-    })
-  },
-  /**
-   * 加载商品详情
-   * @param {*} obj 
-   */
-  getGoodSDetail: function (obj) {
-    wx.cloud.callFunction({
-      name:"getGooddetail",
-      data:{
-        id:obj.id
-      },
-      success(res){
-        if (obj != null && obj.success != null) {       //判断是否有success回调写入
-          obj.success(res.result);                    //根据id拿到详情对象，传回
-        }
-      }
-    })
-  },
-  /**
-   * 添加商品到购物车
-   * @param {*} obj 
-   */
-  addShopCart: function (obj) {
-    wx.cloud.callFunction({
-      name:"addShopcart",
-      data:{
-        data:obj.data
-      },
-      success(res){
-        if (obj.cart == false) {                          //是否为加入购物车，false为直接付款，也包含加入购物车的操作
-          wx.setStorageSync('ids', [res.result]);           //将订单项目id放入存储里，以便在后续操作直接获取
-        }
-        obj.success();
-      },
-      fail(err){
-        console.warn('error')
-        console.warn(err)
-      }
-    })
-  },
+
+
   /**
    * 获取信息列表
    * @param {*} obj 

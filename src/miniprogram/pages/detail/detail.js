@@ -1,5 +1,4 @@
 const app = getApp();
-var that = null;
 Page({
 	data: {
 		autoplay: true,
@@ -18,19 +17,24 @@ Page({
 		imgheight: 0
 	},
 	onLoad: function (options) {
-		that = this;
-		console.log(options)
 		//TODO 获取商品详情信息
-		app.getGoodSDetail({
-			id: options.id,
-			success: function (res) {
-				that.setData({
+		this.getGoodSDetail({id: options.id})
+	},
+	getGoodSDetail: function (obj) {
+    wx.cloud.callFunction({
+      name:"getGooddetail",
+      data:{
+        id:obj.id
+      }
+    }).then(res => {
+			if(res.result){
+				this.setData({
 					loading: false,
-					detail: res
+					detail: res.result
 				})
 			}
 		})
-	},
+  },
 	goShopCart() {
 		//TODO 跳转到购物车页面
 		wx.switchTab({
@@ -50,23 +54,42 @@ Page({
 		// }
 		this.renderBillOptionToList();
 		//TODO 调用增加商品到购物车的接口
-		app.addShopCart({
+		this.addShopsCart({
 			data: Object.assign({}, this.data.bill, {
 				commodityId: this.data.detail._id
 			}),
-			cart:true,
-			success(){
-				that.closePopupTap()
-			},
-			fail(){
-				wx.showModal({
-				  title:"抱歉",
-				  content:"购物车加入失败，请稍后再试",
-				  showCancel:false
+			cart:true
+		})
+		
+	},
+
+  /**
+   * 添加商品到购物车
+   * @param {*} obj 
+   */
+  addShopsCart: function (obj) {
+    wx.cloud.callFunction({
+      name:"addShopcart",
+      data:{
+        data:obj.data
+      },
+    }).then(res => {
+			if (obj.cart == false) {                          //是否为加入购物车，false为直接付款，也包含加入购物车的操作
+				wx.setStorageSync('ids', [res.result]);           //将订单项目id放入存储里，以便在后续操作直接获取
+				wx.navigateTo({
+					url: '../submit/submit',
 				})
 			}
-		});
-	},
+			this.closePopupTap()
+		}).catch(e => {
+			console.warn(e)
+			wx.showModal({
+				title:"抱歉",
+				content:"购物车加入失败，请稍后再试",
+				showCancel:false
+			})
+		})
+  },
 	/**
 	 * 直接购买商品
 	 */
@@ -80,25 +103,12 @@ Page({
 		}
 		this.renderBillOptionToList();
 		//TODO 调用增加商品直接购买的接口
-		app.addShopCart({
+		this.addShopsCart({
 			data: Object.assign({}, this.data.bill, {
 				commodityId: this.data.detail._id
 			}),
-			cart:false,
-			success(){
-				that.closePopupTap();
-				wx.navigateTo({
-				  url: '../submit/submit',
-				})
-			},
-			fail(){
-				wx.showModal({
-				  title:"抱歉",
-				  content:"购物车加入失败，请稍后再试",
-				  showCancel:false
-				})
-			}
-		});
+			cart:false
+		})
 	},
 	/**
 	 * 点击加入购物车按钮
