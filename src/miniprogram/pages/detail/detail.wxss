@@ -115,10 +115,6 @@ swiper-item image {
   position: fixed;
   bottom: 0;
   left: 0;
-  padding-bottom: constant(safe-area-inset-bottom);
-  /*兼容 IOS<11.2*/
-  padding-bottom: env(safe-area-inset-bottom);
-  /*兼容 IOS>11.2*/
 }
 
 .footer-box>button {

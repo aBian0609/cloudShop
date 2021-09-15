@@ -32,7 +32,7 @@
   </view>
   <view class='width-100 space' style="height: 110rpx;"></view>
   <!-- 底部按钮栏 start -->
-  <view class="footer-box flex">
+  <view class="footer-box safe-area-inset-bottom-p flex">
     <button class="initial-button contact flex vertical evenly" open-type="contact">
       <image class="self-center" mode="aspectFit" src="/images/contact.png" />
       <view class="self-center desc">客服</view>
@@ -47,7 +47,7 @@
   </view>
   <!-- 底部按钮栏 end -->
   <!-- 购物车模态框 start -->
-  <view class="show-popup" hidden="{{hideShopPopup}}">
+  <view class="show-popup iphone-footer" hidden="{{hideShopPopup}}">
     <view class="popup-mask" bind:tap="closePopupTap"></view>
     <view class="popup-contents">
       <view class="pop-goods-info">
@@ -79,7 +79,7 @@
           <view class="num-add {{bill.number== buyNumMax ? 'disabled': ''}}" bind:tap="numAddTap">+</view>
         </view>
       </view>
-      <view class="popup-join-btn" bindtap="{{shopType =='addShopCart'?'addShopCart':'buyNow'}}">
+      <view class="popup-join-btn safe-area-inset-bottom-m" bindtap="{{shopType =='addShopCart'?'addShopCart':'buyNow'}}">
         {{shopType =='addShopCart'?'加入购物车':'立即购买'}}
       </view>
     </view>

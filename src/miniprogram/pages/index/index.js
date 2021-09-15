@@ -10,10 +10,7 @@ Page({
   },
   getGoodlist() {
     wx.cloud.callFunction({
-      name: 'getGoodlist',
-      data: {
-        id: 1
-      }
+      name: 'getGoodlist'
     }).then(res => {
       if (res.result) {
         this.setData({
@@ -25,7 +22,7 @@ Page({
   },
   todetail(e) {
     wx.navigateTo({
-      url: `../detail/detail?id=${e.currentTarget.dataset.id}&name=test`,
+      url: `/pages/detail/detail?id=${e.currentTarget.dataset.id}&name=test`,
     })
   }
 })
