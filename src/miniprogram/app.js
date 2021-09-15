@@ -12,7 +12,7 @@ App({
     } else {
       wx.cloud.init({
         traceUser: true,
-        env: 'develop-2g9mkqf6b1299c62'
+        env: 'cloud1-6ggx03woa71b775c'
       })
     }
   },

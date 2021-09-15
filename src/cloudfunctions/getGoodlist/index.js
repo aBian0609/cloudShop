@@ -6,7 +6,9 @@ const db = cloud.database()
 const _ = db.command
 
 exports.main = async (event, context) => {
-	var list = (await db.collection('goods').field({
+	console.log('event', event)
+	console.log('call getGoodList select database ...')
+	let list = (await db.collection('goods').field({
 		title:true,
 		price:true,
 		origin:true,

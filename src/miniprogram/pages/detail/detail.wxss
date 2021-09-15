@@ -115,6 +115,10 @@ swiper-item image {
   position: fixed;
   bottom: 0;
   left: 0;
+  padding-bottom: constant(safe-area-inset-bottom);
+  /*兼容 IOS<11.2*/
+  padding-bottom: env(safe-area-inset-bottom);
+  /*兼容 IOS>11.2*/
 }
 
 .footer-box>button {
@@ -332,33 +336,37 @@ swiper-item image {
 /* 购物车模态框 end */
 
 .flex {
-    display: flex;
-    flex: 1;
+  display: flex;
+  flex: 1;
 }
+
 .self-center {
-    align-self: center;
+  align-self: center;
 }
+
 .flex.between {
-    justify-content: space-between;
+  justify-content: space-between;
 }
+
 .width-100 {
-    width: 100%;
+  width: 100%;
 }
 
 .space {
-    min-height: 20rpx;
-    background-color: #f3f3f3;
+  min-height: 20rpx;
+  background-color: #f3f3f3;
 }
+
 .initial-button {
-	border-radius: initial;
-	line-height: 45px;
-    font-size: 14px;
+  border-radius: initial;
+  line-height: 45px;
+  font-size: 14px;
 }
 
 .flex.evenly {
-    justify-content: space-evenly;
+  justify-content: space-evenly;
 }
 
 .flex.vertical {
-    flex-direction: column;
+  flex-direction: column;
 }

@@ -10,7 +10,10 @@ Page({
   },
   getGoodlist() {
     wx.cloud.callFunction({
-      name: 'getGoodlist'
+      name: 'getGoodlist',
+      data: {
+        id: 1
+      }
     }).then(res => {
       if (res.result) {
         this.setData({
